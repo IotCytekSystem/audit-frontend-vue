@@ -47,7 +47,7 @@
 </template>
 
 <script setup>
-import DesktopSidebar from '../../components/DesktopSidebar.vue';
+import DesktopSidebar from '../../components/DesktopSideBar.vue';
 import Nav from '../../components/Nav.vue';
 import Footer from '../../components/Footer.vue';
 
