@@ -17,7 +17,7 @@ const routes = [
     {
       path: "/admin/edit-profile",
       name: "AdminEditProfile",
-      component: () => import("../pages/profile/AdminProfile.vue"),
+      component: () => import("../pages/Profile/AdminProfile.vue"),
     },
     {
       path: "/admin/clients",
