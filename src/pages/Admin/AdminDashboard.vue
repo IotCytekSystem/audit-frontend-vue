@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-import DesktopSidebar from '../../components/DesktopSidebar.vue';
+import DesktopSidebar from '../../components/DesktopSideBar.vue';
 import ClientGrowthChart from '../../components/ClientGrowthChart.vue';
 import Nav from '../../components/Nav.vue';
 import Footer from '../../components/Footer.vue';
