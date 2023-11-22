@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Client Editing Form -->
-    <div class="p-4">
+    <div class="p-4 ">
       <h2 class="text-2xl font-semibold">Edit Client</h2>
       <form @submit.prevent="saveClient">
         <div class="mt-4">

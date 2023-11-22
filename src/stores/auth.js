@@ -48,7 +48,6 @@ export const useAuthStore = defineStore('auth',{
     
 
 
-
     // LOGIN THE USER
     async login(data) {
       this.isLoading = true;
@@ -57,6 +56,13 @@ export const useAuthStore = defineStore('auth',{
         const response = await axios.post('/login', {
           email: data.email,
           password: data.password,
+        }, {
+          withCredentials: true, // Include credentials in the request
+          // Set other headers as needed
+          headers: {
+            'Access-Control-Allow-Origin': 'http://localhost:3000', // Replace with your frontend URL
+            // Add other headers if necessary
+          },
         });
 
         this.refreshToken = response.data.user.refreshToken;
@@ -66,7 +72,7 @@ export const useAuthStore = defineStore('auth',{
         this.authError = response.data.error;
 
         localStorage.setItem('token', this.token);
-        localStorage.setItem('user', this.user);
+        localStorage.setItem('user', JSON.stringify(this.user)); // Use JSON.stringify to store the user object
 
         // Show loading indicator
         Swal.fire({

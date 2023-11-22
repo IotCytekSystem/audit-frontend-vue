@@ -11,48 +11,18 @@
         
         </router-link>
       </li>
-      <li class="group cursor-pointer">
-        <a class="sidebar-link space-x-3" @click="toggleClientsMenu">
-          <i class="fas fa-user"></i>
-          <span>Clients</span>
-          <i class="ml-auto" :class="{'fas fa-caret-up': isClientsMenuOpen, 'fas fa-caret-down': !isClientsMenuOpen}"></i>
-        </a>
-        <ul v-show="isClientsMenuOpen" class="ml-8 space-y-2">
-          <li>
-            <router-link to="/admin/add-client" class="sidebar-link space-x-3">
-              <i class="fas fa-user-plus"></i>
-              <span>Add Client</span>
-            </router-link>
-          </li>
-          <li>
-            <router-link to="/admin/clients" class="sidebar-link space-x-3">
+      <li>
+          <router-link to="/admin/clients" class="sidebar-link space-x-3">
               <i class="fas fa-users"></i>
-              <span>View Clients</span>
-            </router-link>
-          </li>
-        </ul>
-      </li>
-      <li class="group cursor-pointer">
-        <a class="sidebar-link space-x-3" @click="toggleMetersMenu">
-      <i class="fas fa-tachometer-alt"></i>
-          <span>Meters</span>
-          <i class="ml-auto" :class="{'fas fa-caret-up': isMetersMenuOpen, 'fas fa-caret-down': !isMetersMenuOpen}"></i>
-        </a>
-        <ul v-show="isMetersMenuOpen" class="ml-8 space-y-2">
-          <li>
-            <router-link to="/admin/add-meter" class="sidebar-link space-x-3">
-              <i class="fas fa-plus"></i>
-              <span>Add Meters</span>
-            </router-link>
-          </li>
-          <li>
+              <span> Clients</span>
+          </router-link>
+     </li>
+       <li>
             <router-link to="/admin/meters" class="sidebar-link space-x-3">
-              <i class="fas fa-eye"></i>
-              <span>View Meters</span>
+            <i class="fas fa-tachometer-alt"></i>
+              <span> Meters</span>
             </router-link>
           </li>
-        </ul>
-      </li>
       
       <!-- CORE SECTION -->
       <li class="text-white">

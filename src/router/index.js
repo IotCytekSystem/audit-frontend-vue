@@ -30,14 +30,9 @@ const routes = [
       component: () => import("../pages/Admin/clients/Index.vue"),
     },
     
-    
-    
     {
       path: '/admin/clients/:id',
-      redirect: (to) => {
-        // Calculate the redirect path based on the route parameter 'id'
-        return `/admin/clients/${to.params.id}/info`;
-        },
+
       component: () => import("../pages/Admin/clients/Index.vue"),
       children: [
         {
@@ -50,10 +45,18 @@ const routes = [
           name: "AdminClientOverview",
           component: () => import("../pages/Admin/clients/AdminClientOverview.vue"),
         },
+        {
+          path: 'history',
+          name: "AdminClientHistory",
+          component: () => import("../pages/Admin/clients/AdminClientHistory.vue"),
+        },
+        {
+          path: 'report',
+          name: "AdminClientReport",
+          component: () => import("../pages/Admin/clients/AdminClientReport.vue"),
+        },
         ],
     },
-    
-    
     
       {
       path: "/admin/edit-client",
@@ -114,6 +117,7 @@ const routes = [
       name: "OTP",
       component: () => import("../pages/core/Otp.vue"),
     },
+
    
 ];
 

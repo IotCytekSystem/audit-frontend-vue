@@ -1,33 +1,4 @@
-
-<script setup>
-import { useAuthStore } from '../../stores/auth'
-import { useRouter } from 'vue-router'
-import { ref } from 'vue'
-
-import Swal from 'sweetalert2'
-
-const authStore = useAuthStore()
-const router = useRouter()
-
-const form = ref({
-  email: "",
-  password: "",
-});
-
-
-
-const showLoginError = () => {
-    Swal.fire({
-      icon: 'error',
-      title: 'Login Error',
-      text: authStore.authError,
-    })
-  }
-</script>
-
-
 <template>
-   
   <section class="bg-[#F4F7FF] py-20 lg:py-[120px]">
     <div class="container mx-auto">
       <div class="-mx-4 flex flex-wrap">
@@ -47,30 +18,25 @@ const showLoginError = () => {
               md:px-[60px]
             "
           >
+            <div v-if="authStore.errors.error" class="flex">
+              <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.error }}</span>
+            </div>
 
-    <!-- ERROR -->
-    <div v-if="authStore.errors.error" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{
-                    authStore.errors.error
-                  }}</span>
-                </div>
-
-            <div class="mb-10 text-center md:mb-16">Cytek Energy Power Audit system </div>
-           
+            <div class="mb-10 text-center md:mb-16">Cytek Energy Power Audit system</div>
 
             <form @submit.prevent="async () => {
-           authStore.login(form)
-          if (authStore.authError) {
-            showLoginError()
-          }
-        }" >
+              authStore.login(form);
+              if (authStore.authError) {
+                showLoginError();
+              }
+            }">
               <div class="mb-6">
                 <input
                   type="email"
                   v-model="form.email"
                   placeholder="Email"
                   class="
-                    bordder-[#E9EDF4]
+                    border-[#E9EDF4]
                     w-full
                     rounded-md
                     border
@@ -84,11 +50,6 @@ const showLoginError = () => {
                     focus-visible:shadow-none
                   "
                 />
-                <!-- <div v-if="authStore.errors.email" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{
-                    authStore.errors.email[0]
-                  }}</span>
-                </div> -->
               </div>
               <div class="mb-6">
                 <input
@@ -97,7 +58,7 @@ const showLoginError = () => {
                   placeholder="Password"
                   required
                   class="
-                    bordder-[#E9EDF4]
+                    border-[#E9EDF4]
                     w-full
                     rounded-md
                     border
@@ -112,12 +73,10 @@ const showLoginError = () => {
                   "
                 />
                 <div v-if="authStore.errors.password" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{
-                    authStore.errors.password[0]
-                  }}</span>
+                  <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.password[0] }}</span>
                 </div>
               </div>
-              
+
               <div class="mb-10">
                 <button
                   type="submit"
@@ -131,16 +90,17 @@ const showLoginError = () => {
                     text-white
                   "
                 >
-                
-                <div v-if="authStore.isLoading" >
-                <v-progress-circular indeterminate color="amber"></v-progress-circular>
-                </div>
-                <div v-else>Login</div>
-               
-                  
+              <div v-if="authStore.isLoading" class="text-center">
+  <div class="w-5 h-5 mx-auto my-1">
+    <div class="animate-spin rounded-full border-t-4 border-b-4 border-green-300 h-8 w-8"></div>
+  </div>
+</div>
+<div v-else class="text-white text-lg">Login</div>
+
                 </button>
               </div>
             </form>
+
             <router-link
               to="/forgot-password"
               class="
@@ -152,11 +112,33 @@ const showLoginError = () => {
             >
               Forgot Password?
             </router-link>
-        
-          
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<script setup>
+import { useAuthStore } from '../../stores/auth'
+import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import Swal from 'sweetalert2'
+
+
+const authStore = useAuthStore()
+const router = useRouter()
+
+const form = ref({
+  email: "",
+  password: "",
+});
+
+const showLoginError = () => {
+  Swal.fire({
+    icon: 'error',
+    title: 'Login Error',
+    text: authStore.authError,
+  })
+}
+</script>
