@@ -57,12 +57,8 @@ export const useAuthStore = defineStore('auth',{
           email: data.email,
           password: data.password,
         }, {
-          withCredentials: true, // Include credentials in the request
-          // Set other headers as needed
-          headers: {
-            'Access-Control-Allow-Origin': 'http://localhost:3000', // Replace with your frontend URL
-            // Add other headers if necessary
-          },
+          withCredentials: true, 
+         
         });
 
         this.refreshToken = response.data.user.refreshToken;
