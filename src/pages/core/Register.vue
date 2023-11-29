@@ -5,14 +5,11 @@ import { useAuthStore } from "../../stores/auth";
 const authStore = useAuthStore();
 
 const form = ref({
-  name: "",
+  first_name: "",
+  last_name: "",
   phone: "",
   email: "",
   password: "",
-  country: "",
-  county: "",
-  town: "",
-  role: "",
   password_confirmation: "",
 });
 </script>
@@ -44,8 +41,21 @@ const form = ref({
               <div class="mb-6">
                 <input
                   type="text"
-                  placeholder="Full Name"
-                  v-model="form.name"
+                  placeholder="First Name"
+                  v-model="form.first_name"
+                  required
+                  class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
+                />
+                <div v-if="authStore.errors.name" class="flex">
+                  <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.name }}</span>
+                </div>
+              </div>
+
+                 <div class="mb-6">
+                <input
+                  type="text"
+                  placeholder="Last Name"
+                  v-model="form.last_name"
                   required
                   class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
                 />
@@ -77,55 +87,7 @@ const form = ref({
                   <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.email }}</span>
                 </div>
               </div>
-           
-              <div class="mb-6">
-                <input
-                  type="text"
-                  required
-                  placeholder="Country"
-                  v-model="form.country"
-                  class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                />
-                <div v-if="authStore.errors.country" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.country }}</span>
-                </div>
-              </div>
-              <div class="mb-6">
-                <input
-                  type="text"
-                  required
-                  placeholder="County"
-                  v-model="form.county"
-                  class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                />
-                <div v-if="authStore.errors.county" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.county }}</span>
-                </div>
-              </div>
-              <div class="mb-6">
-                <input
-                  type="text"
-                  required
-                  placeholder="Town"
-                  v-model="form.town"
-                  class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                />
-                <div v-if="authStore.errors.town" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.town }}</span>
-                </div>
-              </div>
-              <div class="mb-6">
-                <input
-                  type="text"
-                  required
-                  placeholder="Role"
-                  v-model="form.role"
-                  class="border-[#E9EDF4] w-full rounded-md border bg-[#FCFDFE] py-3 px-5 text-base text-body-color placeholder-[#ACB6BE] outline-none focus:border-primary focus-visible:shadow-none"
-                />
-                <div v-if="authStore.errors.role" class="flex">
-                  <span class="text-red-400 text-sm m-2 p-2">{{ authStore.errors.role }}</span>
-                </div>
-              </div>
+
                  <div class="mb-6">
                 <input
                   type="password"

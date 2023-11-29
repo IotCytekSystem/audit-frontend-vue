@@ -33,8 +33,9 @@
               <tr>
                 <th class="px-4 py-2">Serial Number</th>
                 <th class="px-4 py-2">MAC Address</th>
-                <th class="px-4 py-2">Date Added</th>
+                <th class="px-4 py-2">Meter Type</th>
                 <th class="px-4 py-2">Status</th>
+                 <th class="px-4 py-2">Date Added</th>
                 <th class="px-4 py-2">Actions</th>
               </tr>
             </thead>
@@ -42,11 +43,18 @@
               <tr v-for="item in paginatedItems" :key="item.id">
                 <td class="px-4 py-2">{{ item.serialNumber }}</td>
                 <td class="px-4 py-2">{{ item.macAddress }}</td>
-                <td class="px-4 py-2">{{ item.dateAdded }}</td>
-                <td class="px-4 py-2">{{ item.status }}</td>
+               
+                <td class="px-4 py-2">{{ item.meterType }}</td>
+                 <td class="px-4 py-2">{{ item.meterStatus }}</td>
+                 <td class="px-4 py-2">{{ item.dateTimeAdded }}</td>
                 <td class="px-4 py-2">
-                  <button @click="editItem(item)" class="text-blue-500">Edit</button>
-                  <button @click="deleteItem(item)" class="text-red-500">Delete</button>
+                 <button @click="openUserModal(item.id)" class="text-blue-600">
+                    <i class="fas fa-edit"></i>
+                  </button>
+                  
+                  <button @click="deleteItem(item.id)" class="text-red-600">
+                      <i class="fas fa-trash-alt "></i>
+                  </button>
                 </td>
               </tr>
             </tbody>
@@ -68,10 +76,10 @@
       <!-- Dropdown for CT selection -->
       <div class="relative">
         <label for="ctSelection" class="block font-medium">CT (Current Transformer)</label>
-        <select v-model="newMeter.ct" id="ctSelection" class="w-full px-4 py-2 border rounded-md">
-          <option value="1">150A</option>
-          <option value="2">250A</option>
-          <option value="3">500A</option>
+        <select v-model="newMeter.meterCT" id="ctSelection" class="w-full px-4 py-2 border rounded-md">
+          <option value="CT_150">150A</option>
+          <option value="CT_250">250A</option>
+          <option value="CT_500">500A</option>
         </select>
       </div>
 
@@ -79,8 +87,8 @@
       <div class="relative">
         <label for="meterTypeSelection" class="block font-medium">Meter Type</label>
         <select v-model="newMeter.meterType" id="meterTypeSelection" class="w-full px-4 py-2 border rounded-md">
-          <option value="single-phase">Single Phase</option>
-          <option value="three-phase">Three Phase</option>
+          <option value="SINGLE_PHASE">Single Phase</option>
+          <option value="THREE_PHASE">Three Phase</option>
         </select>
       </div>
 
@@ -114,7 +122,29 @@
 import Nav from "../../../components/Nav.vue";
 import DesktopSideBar from "../../../components/DesktopSideBar.vue";
 
-import { ref, computed } from 'vue';
+import { ref, computed , onMounted} from 'vue';
+import { useAuthStore } from "../../../stores/auth";
+import axios from "../../../axios.js";
+const meters = ref([]);
+
+
+onMounted(async () => {
+  // Method to fetch meters from the backend
+  try {
+    const response = await axios.get('/meters');
+    // Ensure your API response structure is correct
+    meters.value = response.data; // Adjust this line based on your API response structure
+    totalItems.value = meters.value.length;
+  } catch (error) {
+    console.error('Error fetching meters:', error);
+  }
+});
+
+
+
+const authStore = useAuthStore();
+
+//const logginID=authStore.user.id;
 
 // Data property to control the visibility of the modal form
 const showModal = ref(false);
@@ -132,27 +162,12 @@ const closeModal = () => {
 // Data property to store the new meter data
 const newMeter = ref({
   serialNumber: '',
-  macAddress: ''
-  // Add more properties for meter data as needed
+  macAddress: '',
+  meterCT:''
+ 
 });
 
-// Data property to store the list of meters (example data)
-const meters = ref([
-  {
-    id: 1,
-    serialNumber: 'Meter-001',
-    macAddress: '00:11:22:33:44:55',
-    dateAdded: '2023-01-01',
-    status: 'Active'
-  },
-  {
-    id: 2,
-    serialNumber: 'Meter-002',
-    macAddress: '00:AA:BB:CC:DD:EE',
-    dateAdded: '2023-02-01',
-    status: 'Inactive'
-  }
-]);
+
 
 // Other data and methods you have in your component
 const searchTerm = ref('');
@@ -165,7 +180,7 @@ const currentPage = ref(1);
 const paginatedItems = computed(() => {
   const start = (currentPage.value - 1) * itemsPerPage.value;
   const end = start + itemsPerPage.value;
-  return meters.value.slice(start, end);
+  return meters.value;
 });
 
 const editItem = (item) => {
@@ -176,28 +191,26 @@ const deleteItem = (item) => {
   // Implement your delete logic here
 };
 
-// Method to add a new meter
-const addMeter = () => {
-  // Assign a unique ID to the new meter
-  const newMeterId = meters.value.length + 1;
-  newMeter.value.id = newMeterId;
 
-  // Add the new meter to the list
-  meters.value.push({ ...newMeter.value });
-
-  // Clear the form
-  newMeter.value = {
-    serialNumber: '',
-    macAddress: ''
-    // Clear other properties as needed
-  };
-
-  // Close the modal
-  closeModal();
-  // Update total items and reset pagination
-  totalItems.value = meters.value.length;
-  currentPage.value = 1;
+const addMeter = async () => {
+  try {
+    const response = await axios.post('/meters/add', newMeter.value);
+    meters.value.push(response.data);
+    newMeter.value = {
+      serialNumber: '',
+      macAddress: '',
+      meterCT: 'CT_150',
+      meterType: 'SINGLE_PHASE',
+    };
+    closeModal();
+    totalItems.value = meters.value.length;
+    currentPage.value = 1;
+  } catch (error) {
+    console.error('Error adding meter:', error);
+    // Add additional error handling logic if needed
+  }
 };
+
 
 
 // Data property to control the visibility of the edit modal form

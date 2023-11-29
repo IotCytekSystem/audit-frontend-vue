@@ -12,8 +12,12 @@
           <div class="w-1/2 px-4">
             <form @submit.prevent="addClient">
               <div class="mt-4">
-                <label class="block text-gray-700 text-sm font-bold">Full Name:</label>
-                <input v-model="newClient.fullName" type="text" class="form-input rounded" />
+                <label class="block text-gray-700 text-sm font-bold">First Name:</label>
+                <input v-model="newClient.firstname" type="text" class="form-input rounded" />
+              </div>
+               <div class="mt-4">
+                <label class="block text-gray-700 text-sm font-bold">Last Name:</label>
+                <input v-model="newClient.lastname" type="text" class="form-input rounded" />
               </div>
               <div class="mt-4">
                 <label class="block text-gray-700 text-sm font-bold">Phone Number:</label>
@@ -46,7 +50,7 @@
               </select>
             </div>
             <div class="mt-4">
-              <label class="block text-gray-700 text-sm font-bold">Associated Meter:</label>
+              <label class="block text-gray-700 text-sm font-bold">Meter:</label>
               <select v-model="newClient.associatedMeter" class="form-select">
                 <!-- Replace with your meter options -->
                 <option value="Meter 1">Meter 1</option>
@@ -72,7 +76,8 @@ import Nav from "../../../components/Nav.vue";
 import DesktopSideBar from "../../../components/DesktopSideBar.vue";
 
 const newClient = ref({
-  fullName: "",
+  firstname: "",
+  lastname:"",
   phoneNumber: "",
   email: "",
   county: "Nairobi",

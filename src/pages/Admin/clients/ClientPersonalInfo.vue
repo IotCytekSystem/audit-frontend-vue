@@ -117,11 +117,9 @@ const fetchData = async () => {
 const fetchMeterData = async (meterId) => {
   // Fetch meter details using the provided meterId
   try {
-    console.log("Fetching meter details for meter ID:", meterId);
-
-    // For example:
-    // const meterResponse = await axios.get(`/meters/${meterId}`);
-    // Handle the meter data as needed
+   
+    const meterResponse = await axios.get(`/meters/${meterId}`);
+   
   } catch (error) {
     console.error("Error fetching meter data:", error);
   }

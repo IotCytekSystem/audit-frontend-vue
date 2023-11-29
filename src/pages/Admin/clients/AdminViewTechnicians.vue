@@ -10,10 +10,10 @@
       </div>
       <div class="w-3/4 p-4">
         <button @click="openModal" class="bg-green-500 text-white px-4 py-2 rounded-md mt-4">
-          <i class="fas fa-plus"></i> Add Client
+          <i class="fas fa-plus"></i> Add Technician
         </button>
 
-        <h1 class="text-2xl font-semibold text-blue-900 mt-4">Clients</h1>
+        <h1 class="text-2xl font-semibold text-blue-900 mt-4">Technicians</h1>
         <div class="flex items-center space-x-4 mt-4">
           <input
             v-model="searchTerm"
@@ -80,7 +80,7 @@
     <!--ADD NEW CLIENT-->
     <div v-if="showModal" class="modal">
       <div class="modal-content bg-white p-2 rounded-md">
-        <h2 class="text-2xl font-semibold mb-4">Add Client</h2>
+        <h2 class="text-2xl font-semibold mb-4">Add A Technician</h2>
         <form @submit.prevent="addClient" class="space-y-2">
           <input v-model="newClient.firstname" type="text" placeholder="First Name" class="w-full px-2 py-1 border rounded-md" />
           <input v-model="newClient.lastname" type="text" placeholder="Last Name" class="w-full px-2 py-1 border rounded-md" />
@@ -92,20 +92,9 @@
            <input v-model="newClient.town" type="text" placeholder="town" class="w-full px-2 py-1 border rounded-md" />
           <input v-model="newClient.location" type="text" placeholder="Location" class="w-full px-2 py-1 border rounded-md" />
             <div class="relative">
-        <label for="meterTypeSelection" class="block font-medium">Client Type</label>
-        <select  class="w-full px-2 py-1 border rounded-md">
-          <option value="residential">Residential</option>
-          <option value="commercial">Comercial</option>
-
-        </select>
+       
       </div>
-      <button class="bg-red-900 p-1 rounded">Get the Current Location</button>
-           <div class="relative">
-      <label for="meterTypeSelection" class="block font-medium">Meter</label>
-      <select v-model="newClient.meterId" class="w-full px-2 py-1 border rounded-md">
-        <option v-for="meter in availableMeters" :key="meter.id" :value="meter.id">{{ meter.serialNumber }}</option>
-      </select>
-    </div>
+    
           <button type="submit" class="bg-green-500 text-white px-2 py-1 rounded-md">
             <i class="fas fa-save"></i> Save
           </button>
@@ -151,18 +140,6 @@ import { onMounted } from 'vue';
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAuthStore } from "../../../stores/auth";
-
-const availableMeters = ref([]);
-
-onMounted(async () => {
-  try {
-    // Fetch the available meters from your backend
-    const response = await axios.get('/meters/idle'); // Replace with your actual API endpoint for meters
-    availableMeters.value = response.data;
-  } catch (error) {
-    console.error('Error fetching meters:', error);
-  }
-});
 
 const authStore = useAuthStore();
 const isAdmin = computed(() => authStore.user.role === "ADMIN");
@@ -271,7 +248,7 @@ const newClient = ref({
 onMounted(async () => {
   try {
     loading.value = true;
-    const response = await axios.get('/clients');
+    const response = await axios.get('/subadmins/approved');
     clients.value = response.data; // Update clients with the received data
     totalItems.value = clients.value.length;
   } catch (error) {
@@ -345,7 +322,7 @@ const addClient = async () => {
       town: '',
       location: '',
       meter: ''
-      
+      // Clear other properties as needed
     };
 
     // Close the modal

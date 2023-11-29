@@ -74,31 +74,32 @@ export const useAuthStore = defineStore('auth',{
         localStorage.setItem('token', this.token);
         localStorage.setItem('user', JSON.stringify(this.user)); // Use JSON.stringify to store the user object
 
+          // Delay the success message for 2 seconds
+          setTimeout(() => {
+            Swal.close(); // Close the loading indicator
+            Swal.fire({
+            
+            });
         // Show loading indicator
         Swal.fire({
-          title: 'Logging in...',
+          position: 'center',
+          icon: 'success',
+          title: 'Login successful!',
+          showConfirmButton: false,
+          timer: 1000,
           allowOutsideClick: false,
           onBeforeOpen: () => {
             Swal.showLoading();
             },
         });
 
-        // Delay the success message for 2 seconds
-        setTimeout(() => {
-          Swal.close(); // Close the loading indicator
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Login successful!',
-            showConfirmButton: false,
-            timer: 500,
-          });
+      
 
           // Redirect based on the user's role
           if (this.authError == null && this.user.role === 'ADMIN') {
             this.router.push('/admin/dashboard');
-          } else if (this.authError == null && this.user.role === 'MANAGEMENT') {
-            this.router.push('/management/dashboard');
+          } else if (this.authError == null && this.user.role === 'MANAGER') {
+            this.router.push('/admin/dashboard');
           } else if (this.authError == null && this.user.role === 'CLIENT') {
             this.router.push('/client/dashboard');
           } else {

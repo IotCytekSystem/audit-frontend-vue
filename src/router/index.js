@@ -25,6 +25,11 @@ const routes = [
       component: () => import("../pages/Admin/clients/AdminViewClients.vue"),
     }, 
     {
+      path: "/admin/technicians",
+      name: "AdminViewTechnicians",
+      component: () => import("../pages/Admin/clients/AdminViewTechnicians.vue"),
+    },
+    {
       path: "/admin/clients/:id",
       name: "ClientViewById",
       component: () => import("../pages/Admin/clients/Index.vue"),
@@ -75,16 +80,8 @@ const routes = [
       component: () => import("../pages/Admin/meters/AdminViewMeters.vue"),
     },
 
-    {
-      path: "/admin/add-meter",
-      name: "AdminAddMeter",
-      component: () => import("../pages/Admin/meters/AdminAddMeter.vue"),
-    }, 
-    {
-      path: "/admin/edit-meters",
-      name: "AdminEditMeters",
-      component: () => import("../pages/Admin/meters/AdminEditMeters.vue"),
-    },
+ 
+   
 
      // CLIENT
      {
@@ -92,6 +89,17 @@ const routes = [
       name: "ClientDashboard",
       component: () => import("../pages/Client/ClientDashboard.vue"),
     },
+    {
+      path: "/client/meters",
+      name: "ClientMeters",
+      component: () => import("../pages/Client/Meters.vue"),
+    },
+    {
+      path: "/client/reports",
+      name: "ClientReports",
+      component: () => import("../pages/Client/Meters.vue"),
+    },
+
     // CORE
     {
       path: "/",
