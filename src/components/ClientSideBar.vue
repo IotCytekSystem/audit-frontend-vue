@@ -11,14 +11,7 @@
         </div>
         
         </router-link>
-      </li>
-         <li>
-            <router-link to="/client/meters" class="sidebar-link space-x-3">
-            <i class="fas fa-tachometer-alt"></i>
-              <span>My Meters</span>
-            </router-link>
-          </li>
-      <li>
+    
           <router-link to="/client/clients" class="sidebar-link space-x-3">
               <i class="fas fa-users"></i>
               <span>Reports</span>

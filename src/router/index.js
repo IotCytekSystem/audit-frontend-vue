@@ -35,9 +35,10 @@ const routes = [
       component: () => import("../pages/Admin/clients/Index.vue"),
     },
     
+
+
     {
       path: '/admin/clients/:id',
-
       component: () => import("../pages/Admin/clients/Index.vue"),
       children: [
         {
@@ -54,7 +55,25 @@ const routes = [
           path: 'history',
           name: "AdminClientHistory",
           component: () => import("../pages/Admin/clients/AdminClientHistory.vue"),
+          children: [
+            {
+              path: 'table',
+              name: "AdminClientHistoryTable",
+              component: () => import("../pages/Admin/clients/AdminClientHistoryTable.vue"),
+            },
+            {
+              path: 'day_vs_night',
+              name: "AdminClientDayVsNight",
+              component: () => import("../pages/Admin/clients/AdminClientDayVsNight.vue"),
+            },
+            {
+              path: 'graphs',
+              name: "AdminClientGraphs",
+              component: () => import("../pages/Admin/clients/AdminClientGraphs.vue"),
+            }
+          ]
         },
+      
         {
           path: 'report',
           name: "AdminClientReport",

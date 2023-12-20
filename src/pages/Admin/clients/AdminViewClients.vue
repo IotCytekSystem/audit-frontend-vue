@@ -9,7 +9,7 @@
         <DesktopSideBar />
       </div>
       <div class="w-3/4 p-4">
-        <button @click="openModal" class="bg-green-500 text-white px-4 py-2 rounded-md mt-4">
+        <button @click="openModal" class="bg-green-500 text-white px-1 py-2 rounded-md mt-4">
           <i class="fas fa-plus"></i> Add Client
         </button>
 
@@ -17,10 +17,10 @@
         <div class="flex items-center space-x-4 mt-4">
           <input
             v-model="searchTerm"
-            class="px-4 py-2 border rounded-md"
+            class="px-1 py-2 border rounded-md"
             placeholder="Search clients"
           />
-          <select v-model="sortKey" class="px-4 py-2 border rounded-md">
+          <select v-model="sortKey" class="px-1 py-2 border rounded-md">
             <option value="fullName">Sort by Name</option>
             <option value="phoneNumber">Sort by Phone</option>
             <option value="email">Sort by Email</option>
@@ -31,34 +31,32 @@
           <table class="w-full divide-y divide-gray-500 border border-1 border-gray-700">
             <thead>
               <tr>
-                <th class="px-4 py-2">First Name</th>
-                <th class="px-4 py-2">Last Name</th>
-                <th class="px-4 py-2">Contact</th>
-                <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Country</th>
-                <th class="px-4 py-2">Town</th>
-                <th class="px-4 py-2">Location</th>
-                <th class="px-4 py-2"> Meter</th>
-                 <th v-if="role=ADMIN" class="px-4 py-2">Added By</th>
-                <th class="px-4 py-2">Actions</th>
+                <th class="px-1 py-2 text-start">Full Name</th>
+                <th class="px-1 py-2 text-start">Contact</th>
+                <th class="px-1 py-2 text-start">Email</th>
+                <th class="px-1 py-2 text-start">Country</th>
+                <th class="px-1 py-2 text-start">Town</th>
+                <th class="px-1 py-2 text-start">Location</th>
+               
+                 <th v-if="role=ADMIN" class="px-1 py-2 text-start">Added By</th>
+                <th class="px-1 py-2 text-start">Actions</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="item in paginatedItems" :key="item.id">
-                <td class="px-4 py-2">{{ item.firstname }}</td>
-                <td class="px-4 py-2">{{ item.lastname }}</td>
-                <td class="px-4 py-2">{{ item.phone }}</td>
-                <td class="px-4 py-2">{{ item.email }}</td>
-                <td class="px-4 py-2">{{ item.country }}</td>
-                <td class="px-4 py-2">{{ item.town }}</td>
-                <td class="px-4 py-2">{{ item.location }}</td>
-               <td v-if="isAdmin" class="px-4 py-2">{{ item.manager }}</td>
-                <td class="px-4 py-2">{{ item.associatedMeter }}</td>
-                <td class="px-4 py-2">
+                <td class="px-1 py-2">{{ item.firstname }}  {{ item.lastname }}</td>
+                <td class="px-1 py-2">{{ item.phone }}</td>
+                <td class="px-1 py-2">{{ item.email }}</td>
+                <td class="px-1 py-2">{{ item.country }}</td>
+                <td class="px-1 py-2">{{ item.town }}</td>
+                <td class="px-1 py-2">{{ item.location }}</td>
+                <td class="px-2 py-2">
      <button @click="viewClientInfo(item.id)" class="text-green-500">
+   
       <i class="fas fa-eye"></i>
     </button>
    <button v-if="isAdmin" @click="openUserModal(item.id)" class="text-blue-600">
+  
   <i class="fas fa-edit"></i>
 </button>
 
@@ -70,7 +68,7 @@
             </tbody>
           </table>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 bg-red-600">
           <pagination :total-items="totalItems" :items-per-page="itemsPerPage" v-model="currentPage" />
         </div>
       </div>
@@ -122,12 +120,12 @@
     <h2 class="text-2xl font-semibold mb-4">Edit User Information</h2>
    <form @submit.prevent="editUser" class="space-y-4">
       <input v-model="editedUserData.name" type="text" placeholder="Full Name" class="w-full px-2 py-1 border rounded-md" />
-      <input v-model="editedUserData.phone" type="text" placeholder="Phone Number" class="w-full px-4 py-1 border rounded-md" />
-      <input v-model="editedUserData.email" type="text" placeholder="Email" class="w-full px-4 py-1 border rounded-md" />
-      <input v-model="editedUserData.county" type="text" placeholder="County" class="w-full px-4 py-1 border rounded-md" />
-      <input v-model="editedUserData.location" type="text" placeholder="Location" class="w-full px-4 py-1 border rounded-md" />
-      <input v-model="editedUserData.associatedMeter" type="text" placeholder="Associated Meter" class="w-full px-4 py-1 border rounded-md" />
-      <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-md">
+      <input v-model="editedUserData.phone" type="text" placeholder="Phone Number" class="w-full px-1 py-1 border rounded-md" />
+      <input v-model="editedUserData.email" type="text" placeholder="Email" class="w-full px-1 py-1 border rounded-md" />
+      <input v-model="editedUserData.county" type="text" placeholder="County" class="w-full px-1 py-1 border rounded-md" />
+      <input v-model="editedUserData.location" type="text" placeholder="Location" class="w-full px-1 py-1 border rounded-md" />
+      <input v-model="editedUserData.associatedMeter" type="text" placeholder="Associated Meter" class="w-full px-1 py-1 border rounded-md" />
+      <button type="submit" class="bg-green-500 text-white px-1 py-1 rounded-md">
         <i class="fas fa-save"></i> Save
       </button>
     </form>
@@ -163,6 +161,9 @@ onMounted(async () => {
     console.error('Error fetching meters:', error);
   }
 });
+
+
+
 
 const authStore = useAuthStore();
 const isAdmin = computed(() => authStore.user.role === "ADMIN");
@@ -286,7 +287,7 @@ const searchTerm = ref('');
 const sortKey = ref('fullName');
 const loading = ref(false);
 const totalItems = ref(clients.value.length);
-const itemsPerPage = ref(10);
+const itemsPerPage = ref(20);
 const currentPage = ref(1);
 
 const paginatedItems = computed(() => {
@@ -302,7 +303,7 @@ const editItem = (itemId) => {
 const deleteItem = async (itemId) => {
   try {
     // Send a DELETE request to your API to delete the client with the specified itemId
-    await axios.delete(`/clients/${itemId}`);
+    await axios.post(`/client/archive/${itemId}`);
 
     // Find the index of the item with the specified ID
     const index = clients.value.findIndex((item) => item.id === itemId);

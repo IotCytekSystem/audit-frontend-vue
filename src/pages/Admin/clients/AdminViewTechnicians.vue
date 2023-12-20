@@ -35,10 +35,9 @@
                 <th class="px-4 py-2">Last Name</th>
                 <th class="px-4 py-2">Contact</th>
                 <th class="px-4 py-2">Email</th>
-                <th class="px-4 py-2">Country</th>
-                <th class="px-4 py-2">Town</th>
-                <th class="px-4 py-2">Location</th>
-                <th class="px-4 py-2"> Meter</th>
+                <th class="px-4 py-2">Date Added</th>
+                <th class="px-4 py-2"> Active Clients</th>
+               <th class="px-4 py-2">Archived  Clients</th>
                  <th v-if="role=ADMIN" class="px-4 py-2">Added By</th>
                 <th class="px-4 py-2">Actions</th>
               </tr>
@@ -49,11 +48,10 @@
                 <td class="px-4 py-2">{{ item.lastname }}</td>
                 <td class="px-4 py-2">{{ item.phone }}</td>
                 <td class="px-4 py-2">{{ item.email }}</td>
-                <td class="px-4 py-2">{{ item.country }}</td>
-                <td class="px-4 py-2">{{ item.town }}</td>
-                <td class="px-4 py-2">{{ item.location }}</td>
-               <td v-if="isAdmin" class="px-4 py-2">{{ item.manager }}</td>
-                <td class="px-4 py-2">{{ item.associatedMeter }}</td>
+                <td class="px-4 py-2">{{ item.email }}</td>
+                <td class="px-4 py-2">2</td>
+               <td v-if="isAdmin" class="px-4 py-2">12/02/2023</td>
+                
                 <td class="px-4 py-2">
      <button @click="viewClientInfo(item.id)" class="text-green-500">
       <i class="fas fa-eye"></i>
@@ -87,10 +85,7 @@
           <input v-model="newClient.phone" type="text" placeholder="Phone Number" class="w-full px-2 py-1 border rounded-md" />
           <input v-model="newClient.email" type="text" placeholder="Email" class="w-full px-2 py-1 border rounded-md" />
 
-          <input v-model="newClient.county" type="text" placeholder="Country" class="w-full px-2 py-1 border rounded-md" />
-
-           <input v-model="newClient.town" type="text" placeholder="town" class="w-full px-2 py-1 border rounded-md" />
-          <input v-model="newClient.location" type="text" placeholder="Location" class="w-full px-2 py-1 border rounded-md" />
+        
             <div class="relative">
        
       </div>

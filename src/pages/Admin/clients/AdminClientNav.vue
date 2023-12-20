@@ -14,10 +14,11 @@
           </router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'AdminClientHistory', params: { id: clientId } }">
+          <router-link :to="{ name: 'AdminClientHistoryTable', params: { id: clientId } }">
              <span class="text-white hover:text-yellow-300"> History Record</span>
           </router-link>
         </li>
+        
         <li>
           <router-link :to="{ name: 'AdminClientReport', params: { id: clientId } }">
              <span class="text-white hover:text-yellow-300">  Report Analysis</span>

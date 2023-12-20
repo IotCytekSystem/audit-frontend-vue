@@ -6,10 +6,11 @@ import Nav from "../../components/Nav.vue";
 const authStore = useAuthStore();
 
 const adminProfile = ref({
-  name: authStore.user.name || "",
-  phone_number: authStore.user.phone || "",
+  fname: authStore.user.firstname || "",
+   lname: authStore.user.lastname || "",
+  phone: authStore.user.phone || "",
   country: authStore.user.country || "",
-  gender: authStore.gender || "",
+  location: authStore.location || "",
   email: authStore.user.email || "",
 
 });
@@ -46,14 +47,14 @@ const toggleEditMode = () => {
             <div class="mb-10 text-center md:mb-16">Admin Profile</div>
 
             <div class="mb-6">
-              <p><strong>Full Name:</strong> {{ adminProfile.name }}</p>
+              <p><strong>Full Name:</strong> {{ adminProfile.fname }} {{ adminProfile.lname }}</p>
             </div>
 
             <div class="mb-6">
               <p><strong>Phone Number:</strong> {{ adminProfile.phone }}</p>
             </div>
             <div class="mb-4">
-              <p><strong>Gender:</strong> {{ adminProfile.gender }}</p>
+              <p><strong>Location:</strong> {{ adminProfile.location }}</p>
             </div>
             <div class="mb-6">
               <p><strong>Country:</strong> {{ adminProfile.country }}</p>

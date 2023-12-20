@@ -33,12 +33,7 @@
 
       
       <!-- CORE SECTION -->
-      <li class="text-white">
-        <router-link to="/settings" class="sidebar-link space-x-3">
-          <i class="fas fa-cog"></i>
-          <span>Settings</span>
-        </router-link>
-      </li>
+    
       <li class="text-white">
         <router-link to="/admin/profile" class="sidebar-link space-x-3">
           <i class="fas fa-user-circle"></i>
